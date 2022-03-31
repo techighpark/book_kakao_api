@@ -3,11 +3,11 @@ import reset from "styled-reset";
 
 export const darkMode = {
   bgColor: "black",
-  fontColor: "white",
+  fontColor: "gray",
 };
 
 export const lightMode = {
-  bgColor: "white",
+  bgColor: "gray",
   fontColor: "black",
 };
 
@@ -20,7 +20,9 @@ a{
     text-decoration:none ;
 }
 body{
-    background-color:${props => props.theme.bgColor} ;
-    color:${props => props.theme.fontColor} ;
+    width:100%;
+    min-width:400px;
+    background-color:${props => props.theme.bgColor};
+    color:${props => props.theme.fontColor};
 }
 `;

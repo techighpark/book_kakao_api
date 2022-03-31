@@ -7,11 +7,11 @@ const client = axios.create({
   },
 });
 
-export const bookSearch = async query => {
+export const bookSearch = async (query, sort, page, size, target) => {
   const {
     data: { documents },
   } = await client("/v3/search/book", {
-    params: { query },
+    params: { query, sort, page: "1", size: "5", target },
   });
   return documents;
 };

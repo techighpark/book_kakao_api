@@ -1,28 +1,21 @@
-const Header = ({ setThemeMode }) => {
-  const changeThemeMode = e => {
-    switch (e.target.innerText) {
-      case "Dark":
-        e.target.innerText = "Light";
-        setThemeMode("dark");
-        break;
-      case "Light":
-        e.target.innerText = "Dark";
-        setThemeMode("light");
-        break;
-      default:
-        break;
-    }
-  };
-  const testThemeChange = chageFunc => e => {
-    if (e.target.innerText !== "Dark" || e.target.innerText !== "Light") {
-      return;
-    }
-    return chageFunc(e);
-  };
+import { useContext } from "react";
+import { ThemeContext } from "../context";
 
+const Header = () => {
+  const { darkTheme, setDarkTheme } = useContext(ThemeContext);
+  const onClickThemeMode = () => {
+    setDarkTheme(!darkTheme);
+    if (darkTheme === false) {
+      localStorage.setItem("DARK_MODE", true);
+    } else {
+      localStorage.removeItem("DARK_MODE");
+    }
+  };
   return (
     <div>
-      <button onClick={e => testThemeChange(changeThemeMode(e))}>Dark</button>
+      <button onClick={onClickThemeMode}>
+        {darkTheme ? "Light Mode" : "Dark Mode"}
+      </button>
     </div>
   );
 };
