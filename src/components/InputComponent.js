@@ -5,7 +5,7 @@ import { useSearch } from "../hooks/useSearch";
 import SearchingList from "./SearchingList";
 import { SearchOutline } from "@styled-icons/evaicons-outline/SearchOutline";
 import { BookOpen } from "@styled-icons/boxicons-regular/BookOpen";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import SortComponent from "./SortComponent";
 
 const InputComponent = () => {
@@ -15,10 +15,11 @@ const InputComponent = () => {
   const { focus: inputFocus } = useFocus(inputFocusRef);
   const [sortData, setSortData] = useState();
 
-  const eventHandler = data => {
+  const eventHandler = useCallback(data => {
     setSortData(data);
-  };
+  }, []);
   console.log(sortData);
+
   return (
     <InputWrapper>
       <form>

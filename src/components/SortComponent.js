@@ -23,7 +23,7 @@ const SortComponent = ({ onChange }) => {
 
   useEffect(() => {
     onChange({ select, publisher, title, author });
-  }, []);
+  }, [select, publisher, title, author, onChange]);
 
   return (
     <SortContainer>
