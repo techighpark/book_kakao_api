@@ -1,5 +1,34 @@
 import styled from "styled-components";
 
+const SearchResults = ({
+  title,
+  price,
+  authors,
+  thumbnail,
+  sale_price,
+  status,
+  url,
+}) => {
+  return (
+    <Container>
+      <Thumbnail src={thumbnail} />
+      <Information>
+        <div>제목:{title}</div>
+        <div>가격:{price.toLocaleString()}원</div>
+        <div>판매가격:{sale_price.toLocaleString()}원</div>
+        <div>상태:{status}</div>
+        <div>
+          저자:
+          {authors.map((author, index) => (
+            <span key={index}>{author}</span>
+          ))}
+        </div>
+      </Information>
+      <Separator />
+    </Container>
+  );
+};
+
 const Container = styled.div`
   height: 150px;
   display: flex;
@@ -36,34 +65,5 @@ const Separator = styled.div`
     border-bottom: 0.5px solid gray;
   }
 `;
-
-const SearchResults = ({
-  title,
-  price,
-  authors,
-  thumbnail,
-  sale_price,
-  status,
-  url,
-}) => {
-  return (
-    <Container>
-      <Thumbnail src={thumbnail} />
-      <Information>
-        <div>제목:{title}</div>
-        <div>가격:{price.toLocaleString()}원</div>
-        <div>판매가격:{sale_price.toLocaleString()}원</div>
-        <div>상태:{status}</div>
-        <div>
-          저자:
-          {authors.map((author, index) => (
-            <span key={index}>{author}</span>
-          ))}
-        </div>
-      </Information>
-      <Separator />
-    </Container>
-  );
-};
 
 export default SearchResults;

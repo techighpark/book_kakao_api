@@ -2,13 +2,22 @@ import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
 export const darkMode = {
-  bgColor: "black",
-  fontColor: "gray",
+  bgColor: "#202124",
+  fontColor: "#e8eaed",
+  borderColor: "#5f6368",
+  borderHoverColor: "#9aa0a6",
+  inputBgColor: "#202124",
+  inputIconColor: "#9aa0a6",
+  inputHoverBgColor: "#303134",
+  btnBgColor: "#303134",
+  btnFontSize: "12px",
+  btnFontWeight: "400",
+  btnLetterSpacing: "0.05em",
 };
 
 export const lightMode = {
-  bgColor: "gray",
-  fontColor: "black",
+  bgColor: "#FFFFFF",
+  fontColor: "#757575",
 };
 
 export const GlobalStyle = createGlobalStyle`
@@ -20,9 +29,9 @@ a{
     text-decoration:none ;
 }
 body{
-    width:100%;
-    min-width:400px;
-    background-color:${props => props.theme.bgColor};
-    color:${props => props.theme.fontColor};
+  background-color:${props => props.theme.bgColor};
+  color:${props => props.theme.fontColor};
+  font-family: 'MuseoModerno', cursive;
+  height:100%;
 }
 `;

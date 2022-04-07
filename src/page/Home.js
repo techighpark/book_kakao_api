@@ -1,116 +1,79 @@
-import { useState } from "react";
-import { useInput } from "../hooks/useInput";
-import { useSearch } from "../hooks/useSearch";
-import SearchResults from "../components/SearchResults";
-import SearchingList from "../components/SearchingList";
-import StyledPage from "../components/StyledPage";
-import { useSearchSubmit } from "../hooks/useSearchSubmit";
+import styled from "styled-components";
+
+import { PageTitle } from "../components/HelmetTitle";
+import Layout from "../components/Layout";
+
+import InputComponent from "../components/InputComponent";
 
 const Home = () => {
-  const [submitValue, setSubmitValue] = useState("");
-  const [sort, setSort] = useState("acurracy");
-  const [target, setTarget] = useState("title");
+  // const [sort, setSort] = useState("acurracy");
+  // const [target, setTarget] = useState("title");
 
-  const searchInput = useInput("");
-  const books = useSearch([], searchInput.inputValue);
-  const submitBooks = useSearchSubmit([], submitValue, sort, "1", "5", target);
-  console.log(books);
-  const onValidSubmit = e => {
-    e.preventDefault();
-    setSubmitValue(e.target[0].value);
-    submitBooks.getBookResult(submitValue, sort, "1", "5", target);
-  };
+  // const useSubmit = (defaultValue = null) => {
+  //   const [submitValue, setSubmitValue] = useState(defaultValue);
+  //   const onValidSubmit = e => {
+  //     e.preventDefault();
+  //     setSubmitValue(e.target[0].value);
+  //   };
+  //   return { submitValue, onValidSubmit };
+  // };
 
-  const onSelectSort = e => {
-    setSort(e.target.value);
-  };
-  const onClickTarget = e => {
-    setTarget(e.target.title);
-  };
+  // const { submitValue, onValidSubmit } = useSubmit();
+  // const submitBooks = useSearchSubmit([], submitValue, sort, "1", "5", target);
 
   return (
-    <StyledPage.Layout>
-      <StyledPage.Container>
-        <StyledPage.Title>Search Books</StyledPage.Title>
-        <StyledPage.SortContainer>
-          <form onSubmit={onValidSubmit}>
-            <StyledPage.Row>
-              <StyledPage.QueryInput
-                placeholder="Search Books"
-                value={searchInput.inputValue}
-                onChange={searchInput.onChange}
-              ></StyledPage.QueryInput>
-            </StyledPage.Row>
-            <StyledPage.Row>
-              <StyledPage.Select
-                name="sort"
-                defaultValue={"accuracy"}
-                onChange={onSelectSort}
-              >
-                <option value="accuracy">정확도순</option>
-                <option value="latest">발간일순</option>
-              </StyledPage.Select>
-              <StyledPage.SortBtns>
-                <StyledPage.SortBtn
-                  title="title"
-                  onClick={onClickTarget}
-                  target={target}
-                >
-                  제목
-                </StyledPage.SortBtn>
-                <StyledPage.SortBtn
-                  title="isbn"
-                  onClick={onClickTarget}
-                  target={target}
-                >
-                  ISBN
-                </StyledPage.SortBtn>
-                <StyledPage.SortBtn
-                  title="publisher"
-                  onClick={onClickTarget}
-                  target={target}
-                >
-                  출판사
-                </StyledPage.SortBtn>
-                <StyledPage.SortBtn
-                  title="person"
-                  onClick={onClickTarget}
-                  target={target}
-                >
-                  저자
-                </StyledPage.SortBtn>
-              </StyledPage.SortBtns>
-            </StyledPage.Row>
-          </form>
-        </StyledPage.SortContainer>
-        <StyledPage.BodyContainer>
-          {books.searchBooksList.length === 0 ? null : (
-            <div
-              style={{
-                position: "absolute",
-                width: "395px",
-                zIndex: 1,
-                backgroundColor: "white",
-                top: "20%",
-                left: "25%",
-                borderRadius: "5px",
-                padding: "10px",
-              }}
-            >
-              {books?.searchBooksList?.map((book, index) => (
-                <SearchingList key={index} {...book} />
-              ))}
-            </div>
-          )}
-          <div style={{ position: "absolute" }}>
+    <Layout>
+      <Container>
+        <PageTitle title={"Home"} />
+        <TitleContainer>
+          <Title>Search Books</Title>
+        </TitleContainer>
+        {/* <form onSubmit={onValidSubmit}> */}
+        <InputComponent />
+
+        <BodyContainer>
+          {/* <div style={{ position: "absolute" }}>
             {submitBooks?.searchBooksList?.map((book, index) => (
               <SearchResults key={index} {...book} />
             ))}
-          </div>
-        </StyledPage.BodyContainer>
-      </StyledPage.Container>
-    </StyledPage.Layout>
+          </div> */}
+        </BodyContainer>
+      </Container>
+    </Layout>
   );
 };
+
+const BodyContainer = styled.div`
+  /* width: 450px; */
+
+  /* border: 3px solid red; */
+
+  @media screen and (max-width: 500px) {
+    width: 300px;
+  } ;
+`;
+const Title = styled.div`
+  font-size: 80px;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 250px;
+  letter-spacing: -0.1em;
+
+  /* border: 1px solid; */
+`;
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* border: 1px solid; */
+`;
 
 export default Home;
