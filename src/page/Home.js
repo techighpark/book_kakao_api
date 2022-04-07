@@ -1,43 +1,24 @@
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-
-import { PageTitle } from "../components/HelmetTitle";
 import Layout from "../components/Layout";
-
+import HelmetTitle from "../components/HelmetTitle";
 import InputComponent from "../components/InputComponent";
 
 const Home = () => {
-  // const [sort, setSort] = useState("acurracy");
-  // const [target, setTarget] = useState("title");
-
-  // const useSubmit = (defaultValue = null) => {
-  //   const [submitValue, setSubmitValue] = useState(defaultValue);
-  //   const onValidSubmit = e => {
-  //     e.preventDefault();
-  //     setSubmitValue(e.target[0].value);
-  //   };
-  //   return { submitValue, onValidSubmit };
-  // };
-
-  // const { submitValue, onValidSubmit } = useSubmit();
-  // const submitBooks = useSearchSubmit([], submitValue, sort, "1", "5", target);
+  const [bookList, setBookList] = useState([]);
+  const eventHandler = useCallback(data => {
+    setBookList(data);
+  }, []);
 
   return (
     <Layout>
       <Container>
-        <PageTitle title={"Home"} />
+        <HelmetTitle title={"Home"} />
         <TitleContainer>
           <Title>Search Books</Title>
         </TitleContainer>
-        {/* <form onSubmit={onValidSubmit}> */}
-        <InputComponent />
-
-        <BodyContainer>
-          {/* <div style={{ position: "absolute" }}>
-            {submitBooks?.searchBooksList?.map((book, index) => (
-              <SearchResults key={index} {...book} />
-            ))}
-          </div> */}
-        </BodyContainer>
+        <InputComponent onSubmitList={eventHandler} />
+        <BodyContainer></BodyContainer>
       </Container>
     </Layout>
   );

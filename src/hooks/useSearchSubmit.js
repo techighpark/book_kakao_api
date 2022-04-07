@@ -1,28 +1,29 @@
 import { useEffect, useState } from "react";
 import { bookSearch } from "../api";
 
-export const useSearchSubmit = (
+const useSearchSubmit = (
   initialValue,
-  inputValue,
+  submitValue,
   sort,
   page,
   size,
   target
 ) => {
-  const [searchBooksList, setSearchBooksList] = useState(initialValue);
+  const [submitBooksList, setSubmitBooksList] = useState(initialValue);
 
   const getBookResult = async (query, sort, page, size, target) => {
     if (query === "") {
-      setSearchBooksList([]);
+      setSubmitBooksList([]);
     } else {
       const queryResults = await bookSearch(query, sort, page, size, target);
-      setSearchBooksList(queryResults);
+      setSubmitBooksList(queryResults);
     }
   };
-
   useEffect(() => {
-    getBookResult(inputValue, sort, page, size, target);
-  }, [inputValue, sort, page, size, target]);
+    getBookResult(submitValue, sort, page, size, target);
+  }, [submitValue, sort, page, size, target]);
 
-  return { searchBooksList, getBookResult };
+  return { submitBooksList };
 };
+
+export default useSearchSubmit;

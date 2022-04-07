@@ -1,28 +1,49 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
-import useFocus from "../hooks/useFocus";
-import { useInput } from "../hooks/useInput";
-import { useSearch } from "../hooks/useSearch";
-import SearchingList from "./SearchingList";
 import { SearchOutline } from "@styled-icons/evaicons-outline/SearchOutline";
 import { BookOpen } from "@styled-icons/boxicons-regular/BookOpen";
-import { useCallback, useRef, useState } from "react";
+import useFocus from "../hooks/useFocus";
+import useInput from "../hooks/useInput";
+import useSearch from "../hooks/useSearch";
+import useSearchSubmit from "../hooks/useSearchSubmit";
+import useSubmit from "../hooks/useSubmit";
+import SearchingList from "./SearchingList";
 import SortComponent from "./SortComponent";
+import { useNavigate } from "react-router-dom";
 
-const InputComponent = () => {
-  const { inputValue, onChange } = useInput("");
-  const { searchBooksList } = useSearch([], inputValue);
+const InputComponent = ({ onSubmitList }) => {
   const inputFocusRef = useRef(null);
-  const { focus: inputFocus } = useFocus(inputFocusRef);
   const [sortData, setSortData] = useState();
+  const { focus: inputFocus, setFocus } = useFocus(inputFocusRef);
+  const { inputValue, onChange } = useInput("", setFocus);
+  const { searchBooksList } = useSearch([], inputValue);
+  const { submitValue, onSubmit } = useSubmit("", setFocus);
+  const { submitBooksList } = useSearchSubmit(
+    [],
+    submitValue,
+    sortData?.select,
+    1,
+    5,
+    sortData?.target
+  );
 
   const eventHandler = useCallback(data => {
     setSortData(data);
   }, []);
-  console.log(sortData);
+
+  useEffect(() => {
+    onSubmitList({ submitBooksList });
+  }, [submitBooksList, onSubmitList]);
+
+  const navigate = useNavigate();
+  const onSubmitTest = e => {
+    e.preventDefault();
+    navigate(`/search/${e.target[0].value}`);
+  };
 
   return (
     <InputWrapper>
-      <form>
+      <form onSubmit={onSubmitTest}>
         <InputContainer ref={inputFocusRef} inputFocus={inputFocus}>
           <InputDeco>
             <SearchOutlineIcon />
@@ -34,14 +55,18 @@ const InputComponent = () => {
             <BookOpenIcon />
           </InputDeco>
           {inputFocus ? (
-            searchBooksList.length === 0 ? null : (
-              <SearchListContainer>
-                <Separator />
-                {searchBooksList?.map((book, index) => (
-                  <SearchingList key={index} {...book} />
-                ))}
-              </SearchListContainer>
-            )
+            <SearchListContainer>
+              <Separator />
+              {searchBooksList.length === 0 ? (
+                <ErrorText>There is no results</ErrorText>
+              ) : (
+                <>
+                  {searchBooksList?.map((book, index) => (
+                    <SearchingList key={index} {...book} />
+                  ))}
+                </>
+              )}
+            </SearchListContainer>
           ) : null}
         </InputContainer>
       </form>
@@ -56,12 +81,18 @@ const SearchListContainer = styled.div`
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  padding: 44px 20px;
+  padding: 44px 20px 30px 20px;
   background-color: ${props => props.theme.inputHoverBgColor};
   border-radius: 24px;
   z-index: -1;
   /* border: 5px solid blue; */
 `;
+const ErrorText = styled.div`
+  font-size: ${props => props.theme.btnFontSize};
+  font-weight: ${props => props.theme.btnFontWeight};
+  letter-spacing: ${props => props.theme.btnLetterSpacing};
+`;
+
 const Separator = styled.div`
   border-top: 1px solid ${props => props.theme.borderColor};
   padding-top: 20px;

@@ -4,26 +4,18 @@ import useFocus from "../hooks/useFocus";
 
 const SortComponent = ({ onChange }) => {
   const selectFocunRef = useRef(null);
+  const [select, setSelect] = useState("Accuracy");
+  const [target, setTarget] = useState("title");
   const { focus: selectFocus, setFocus: setSelectFocus } =
     useFocus(selectFocunRef);
-  const [select, setSelect] = useState("Accuracy");
-  const [publisher, setPublisher] = useState(false);
-  const [title, setTitle] = useState(false);
-  const [author, setAuthor] = useState(false);
 
-  const onClickPublisher = () => {
-    setPublisher(!publisher);
-  };
-  const onClickTitle = () => {
-    setTitle(!title);
-  };
-  const onClickAuthor = () => {
-    setAuthor(!author);
+  const onClickPublisher = value => {
+    setTarget(value);
   };
 
   useEffect(() => {
-    onChange({ select, publisher, title, author });
-  }, [select, publisher, title, author, onChange]);
+    onChange({ target, select });
+  }, [target, select, onChange]);
 
   return (
     <SortContainer>
@@ -49,13 +41,22 @@ const SortComponent = ({ onChange }) => {
             </SelectItem>
           </SelectList>
         </SelectBtn>
-        <SortBtn onClick={onClickPublisher} selected={publisher}>
-          <BtnText>Publisher</BtnText>
-        </SortBtn>
-        <SortBtn onClick={onClickTitle} selected={title}>
+        <SortBtn
+          onClick={() => onClickPublisher("title")}
+          selected={target === "title"}
+        >
           <BtnText>Title</BtnText>
         </SortBtn>
-        <SortBtn onClick={onClickAuthor} selected={author}>
+        <SortBtn
+          onClick={() => onClickPublisher("publisher")}
+          selected={target === "publisher"}
+        >
+          <BtnText>Publisher</BtnText>
+        </SortBtn>
+        <SortBtn
+          onClick={() => onClickPublisher("author")}
+          selected={target === "author"}
+        >
           <BtnText>Author</BtnText>
         </SortBtn>
       </SortBtns>

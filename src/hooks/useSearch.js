@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { bookSearch } from "../api";
 
-export const useSearch = (initialValue, inputValue) => {
+const useSearch = (initialValue, inputValue) => {
   const [searchBooksList, setSearchBooksList] = useState(initialValue);
+
   const getBookResult = async query => {
     if (query === "") {
       setSearchBooksList([]);
@@ -18,3 +19,5 @@ export const useSearch = (initialValue, inputValue) => {
 
   return { searchBooksList };
 };
+
+export default useSearch;
