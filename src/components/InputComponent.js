@@ -1,44 +1,29 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import { SearchOutline } from "@styled-icons/evaicons-outline/SearchOutline";
 import { BookOpen } from "@styled-icons/boxicons-regular/BookOpen";
 import useFocus from "../hooks/useFocus";
 import useInput from "../hooks/useInput";
 import useSearch from "../hooks/useSearch";
-import useSearchSubmit from "../hooks/useSearchSubmit";
-import useSubmit from "../hooks/useSubmit";
 import SearchingList from "./SearchingList";
 import SortComponent from "./SortComponent";
 import { useNavigate } from "react-router-dom";
 
-const InputComponent = ({ onSubmitList }) => {
+const InputComponent = () => {
   const inputFocusRef = useRef(null);
   const [sortData, setSortData] = useState();
   const { focus: inputFocus, setFocus } = useFocus(inputFocusRef);
   const { inputValue, onChange } = useInput("", setFocus);
   const { searchBooksList } = useSearch([], inputValue);
-  const { submitValue, onSubmit } = useSubmit("", setFocus);
-  const { submitBooksList } = useSearchSubmit(
-    [],
-    submitValue,
-    sortData?.select,
-    1,
-    5,
-    sortData?.target
-  );
 
   const eventHandler = useCallback(data => {
     setSortData(data);
   }, []);
 
-  useEffect(() => {
-    onSubmitList({ submitBooksList });
-  }, [submitBooksList, onSubmitList]);
-
   const navigate = useNavigate();
   const onSubmitTest = e => {
     e.preventDefault();
-    navigate(`/search/${e.target[0].value}`);
+    navigate(`/search/${e.target[0].value}`, { state: { sortData } });
   };
 
   return (

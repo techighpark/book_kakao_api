@@ -5,11 +5,6 @@ import HelmetTitle from "../components/HelmetTitle";
 import InputComponent from "../components/InputComponent";
 
 const Home = () => {
-  const [bookList, setBookList] = useState([]);
-  const eventHandler = useCallback(data => {
-    setBookList(data);
-  }, []);
-
   return (
     <Layout>
       <Container>
@@ -17,7 +12,7 @@ const Home = () => {
         <TitleContainer>
           <Title>Search Books</Title>
         </TitleContainer>
-        <InputComponent onSubmitList={eventHandler} />
+        <InputComponent />
         <BodyContainer></BodyContainer>
       </Container>
     </Layout>
