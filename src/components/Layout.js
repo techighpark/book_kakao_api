@@ -15,7 +15,7 @@ const SLayout = styled.div`
   justify-content: center;
   align-items: center;
   border: 1px solid red;
-  height: 100vh;
+  /* height: 100vh; */
 `;
 
 export default Layout;

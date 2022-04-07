@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import Layout from "../components/Layout";
 import HelmetTitle from "../components/HelmetTitle";
@@ -13,21 +12,11 @@ const Home = () => {
           <Title>Search Books</Title>
         </TitleContainer>
         <InputComponent />
-        <BodyContainer></BodyContainer>
       </Container>
     </Layout>
   );
 };
 
-const BodyContainer = styled.div`
-  /* width: 450px; */
-
-  /* border: 3px solid red; */
-
-  @media screen and (max-width: 500px) {
-    width: 300px;
-  } ;
-`;
 const Title = styled.div`
   font-size: 80px;
   font-weight: 500;
@@ -41,6 +30,7 @@ const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* padding-bottom: 50px; */
 `;
 const Container = styled.div`
   width: 100%;

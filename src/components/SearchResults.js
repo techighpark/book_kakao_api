@@ -1,13 +1,12 @@
 import styled from "styled-components";
 
 const SearchResults = ({
+  thumbnail,
   title,
   price,
-  authors,
-  thumbnail,
   sale_price,
   status,
-  url,
+  authors,
 }) => {
   return (
     <Container>
@@ -29,16 +28,17 @@ const SearchResults = ({
   );
 };
 
-const Container = styled.div`
-  height: 150px;
-  display: flex;
-  margin-top: 100px;
+const Separator = styled.div`
   @media screen and (max-width: 500px) {
-    height: 400px;
-    flex-direction: column;
-    margin-top: 10px;
-    margin-bottom: 50px;
-  } ;
+    margin-top: 30px;
+    border-bottom: 0.5px solid gray;
+  }
+`;
+const Thumbnail = styled.img`
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border: 1px solid white;
 `;
 const Information = styled.div`
   width: 100%;
@@ -47,23 +47,16 @@ const Information = styled.div`
   justify-content: space-between;
   align-items: flex-end;
   font-size: 12px;
-  @media screen and (max-width: 500px) {
-    align-items: flex-start;
-    height: 300px;
-    margin-top: 30px;
-  } ;
+  border: 1px solid orange;
 `;
-const Thumbnail = styled.img`
-  width: 100px;
-  height: 100%;
-  object-fit: contain;
-`;
-
-const Separator = styled.div`
-  @media screen and (max-width: 500px) {
-    margin-top: 30px;
-    border-bottom: 0.5px solid gray;
-  }
+const Container = styled.div`
+  width: 100%;
+  max-width: 800px;
+  height: 200px;
+  margin-top: 100px;
+  /* padding: 0px 100px; */
+  border: 2px solid red;
+  display: flex;
 `;
 
 export default SearchResults;

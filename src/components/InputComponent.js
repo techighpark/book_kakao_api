@@ -25,6 +25,7 @@ const InputComponent = () => {
     e.preventDefault();
     navigate(`/search/${e.target[0].value}`, { state: { sortData } });
   };
+  console.log(searchBooksList);
 
   return (
     <InputWrapper>
