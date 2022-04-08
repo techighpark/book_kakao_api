@@ -14,7 +14,7 @@ const SLayout = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   /* height: 100vh; */
 `;
 

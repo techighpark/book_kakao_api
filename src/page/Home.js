@@ -2,8 +2,14 @@ import styled from "styled-components";
 import Layout from "../components/Layout";
 import HelmetTitle from "../components/HelmetTitle";
 import InputComponent from "../components/InputComponent";
+import { useCallback, useState } from "react";
 
 const Home = () => {
+  const [, setSortData] = useState();
+  const getSortData = useCallback(data => {
+    setSortData(data);
+  }, []);
+
   return (
     <Layout>
       <Container>
@@ -11,7 +17,7 @@ const Home = () => {
         <TitleContainer>
           <Title>Search Books</Title>
         </TitleContainer>
-        <InputComponent />
+        <InputComponent getSortData={getSortData} />
       </Container>
     </Layout>
   );

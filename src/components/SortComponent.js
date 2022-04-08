@@ -4,28 +4,29 @@ import useFocus from "../hooks/useFocus";
 
 const SortComponent = ({ onChange }) => {
   const selectFocunRef = useRef(null);
-  const [select, setSelect] = useState("Accuracy");
+  const [selectBtn, setSelectBtn] = useState("Accuracy");
+  const [sort, setSort] = useState("accuracy");
   const [target, setTarget] = useState("title");
   const { focus: selectFocus, setFocus: setSelectFocus } =
     useFocus(selectFocunRef);
 
-  const onClickPublisher = value => {
-    setTarget(value);
-  };
+  // console.log(target);
+  // console.log(sort);
 
   useEffect(() => {
-    onChange({ target, select });
-  }, [target, select, onChange]);
+    onChange({ target, sort });
+  }, [target, sort, onChange]);
 
   return (
     <SortContainer>
       <SortBtns>
         <SelectBtn ref={selectFocunRef} selectFocus={selectFocus}>
-          {select}
+          {selectBtn}
           <SelectList>
             <SelectItem
               onClick={() => {
-                setSelect("Accuracy");
+                setSelectBtn("Accuracy");
+                setSort("accuracy");
                 setSelectFocus(false);
               }}
             >
@@ -33,7 +34,8 @@ const SortComponent = ({ onChange }) => {
             </SelectItem>
             <SelectItem
               onClick={() => {
-                setSelect("Latest");
+                setSelectBtn("Latest");
+                setSort("latest");
                 setSelectFocus(false);
               }}
             >
@@ -42,19 +44,19 @@ const SortComponent = ({ onChange }) => {
           </SelectList>
         </SelectBtn>
         <SortBtn
-          onClick={() => onClickPublisher("title")}
+          onClick={() => setTarget("title")}
           selected={target === "title"}
         >
           <BtnText>Title</BtnText>
         </SortBtn>
         <SortBtn
-          onClick={() => onClickPublisher("publisher")}
+          onClick={() => setTarget("publisher")}
           selected={target === "publisher"}
         >
           <BtnText>Publisher</BtnText>
         </SortBtn>
         <SortBtn
-          onClick={() => onClickPublisher("author")}
+          onClick={() => setTarget("author")}
           selected={target === "author"}
         >
           <BtnText>Author</BtnText>
@@ -107,10 +109,12 @@ const SelectBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid ${props => props.theme.borderHoverColor};
   cursor: pointer;
   ${props =>
     props.selectFocus &&
     css`
+      border: none;
       ${SelectList} {
         display: inline;
       }

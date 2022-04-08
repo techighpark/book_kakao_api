@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import { SearchOutline } from "@styled-icons/evaicons-outline/SearchOutline";
 import { BookOpen } from "@styled-icons/boxicons-regular/BookOpen";
@@ -9,7 +9,8 @@ import SearchingList from "./SearchingList";
 import SortComponent from "./SortComponent";
 import { useNavigate } from "react-router-dom";
 
-const InputComponent = () => {
+const InputComponent = ({ getSortData }) => {
+  const navigate = useNavigate();
   const inputFocusRef = useRef(null);
   const [sortData, setSortData] = useState();
   const { focus: inputFocus, setFocus } = useFocus(inputFocusRef);
@@ -20,12 +21,17 @@ const InputComponent = () => {
     setSortData(data);
   }, []);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    getSortData(sortData);
+  }, [sortData, getSortData]);
+
   const onSubmitTest = e => {
     e.preventDefault();
-    navigate(`/search/${e.target[0].value}`, { state: { sortData } });
+    setFocus(false);
+    if (sortData !== undefined) {
+      navigate(`/search/${e.target[0].value}`);
+    }
   };
-  console.log(searchBooksList);
 
   return (
     <InputWrapper>
@@ -67,11 +73,11 @@ const SearchListContainer = styled.div`
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  padding: 44px 20px 30px 20px;
+  padding: 42px 20px 30px 20px;
   background-color: ${props => props.theme.inputHoverBgColor};
   border-radius: 24px;
   z-index: -1;
-  /* border: 5px solid blue; */
+  /* border: 1px solid blue; */
 `;
 const ErrorText = styled.div`
   font-size: ${props => props.theme.btnFontSize};
@@ -92,7 +98,8 @@ const Input = styled.input`
   width: 100%;
   outline: none;
   background-color: transparent;
-  color: #e8eaed;
+  color: ${props => props.theme.inputFontColor};
+  /* border: 1px solid yellow; */
 `;
 const InputCenter = styled.div`
   position: relative;
@@ -132,7 +139,7 @@ const InputContainer = styled.div`
   ${props =>
     props.inputFocus &&
     css`
-      border: none;
+      border: 1px solid ${props => props.theme.inputBgColor};
       background-color: ${props => props.theme.inputHoverBgColor};
     `}
   box-shadow: none;
@@ -140,7 +147,7 @@ const InputContainer = styled.div`
   position: relative;
   z-index: 3;
 
-  /* border: 3px solid green; */
+  /* border: 1px solid green; */
 `;
 const InputWrapper = styled.div`
   width: 100%;

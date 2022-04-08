@@ -9,8 +9,8 @@ const useSearchSubmit = (
   size,
   target
 ) => {
+  console.log(submitValue);
   const [submitBooksList, setSubmitBooksList] = useState(initialValue);
-
   const getBookResult = async (query, sort, page, size, target) => {
     if (query === "") {
       setSubmitBooksList([]);
