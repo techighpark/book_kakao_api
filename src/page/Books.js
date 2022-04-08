@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Layout from "../components/Layout";
 import SearchResults from "../components/SearchResults";
@@ -29,10 +29,7 @@ const BookList = () => {
       <HelmetTitle title={"Results"} />
       <Container>
         <BodyContainer>
-          <Title>
-            <Link to={"/"}>Search Books</Link>
-          </Title>
-          <InputComponent getSortData={getSortData} />
+          <InputComponent getSortData={getSortData} displayTitle={true} />
         </BodyContainer>
         {submitBooksList?.map((book, index) => (
           <SearchResults key={index} {...book} />
@@ -45,13 +42,7 @@ const BodyContainer = styled.div`
   position: relative;
   display: flex;
   /* border: 1px solid green; */
-`;
-const Title = styled.div`
-  position: absolute;
-  right: 100%;
-  top: 57px;
-  cursor: pointer;
-  /* border: 1px solid; */
+  width: 100%;
 `;
 
 const Container = styled.div`

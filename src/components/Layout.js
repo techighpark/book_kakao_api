@@ -9,6 +9,7 @@ const Layout = ({ children }) => {
     </SLayout>
   );
 };
+
 const SLayout = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,6 +17,9 @@ const SLayout = styled.div`
   align-items: center;
   /* border: 1px solid red; */
   /* height: 100vh; */
+  /* @media screen and (max-width: 500px) {
+    width: 400px;
+  } */
 `;
 
 export default Layout;

@@ -118,7 +118,10 @@ const SelectBtn = styled.div`
       ${SelectList} {
         display: inline;
       }
-    `}/* border: 1px solid green; */
+    `} /* border: 1px solid green; */
+    @media screen and (max-width: 500px) {
+    width: 80px;
+  }
 `;
 
 const BtnText = styled.div`
@@ -147,19 +150,28 @@ const SortBtn = styled.div`
     css`
       border: 1px solid ${props => props.theme.borderHoverColor};
     `}
+  @media screen and (max-width: 500px) {
+    width: 80px;
+  }
 `;
 const SortBtns = styled.div`
   display: flex;
   justify-content: space-between;
 
   /* border: 1px solid white; */
+  @media screen and (max-width: 500px) {
+    justify-content: center;
+  }
 `;
 
 const SortContainer = styled.div`
   padding: 15px;
-  min-width: 500px;
+  /* min-width: 500px; */
 
   /* border: 1px solid orange; */
+  @media screen and (max-width: 500px) {
+    max-width: 350px;
+  }
 `;
 
 export default SortComponent;

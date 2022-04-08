@@ -17,7 +17,7 @@ const Home = () => {
         <TitleContainer>
           <Title>Search Books</Title>
         </TitleContainer>
-        <InputComponent getSortData={getSortData} />
+        <InputComponent getSortData={getSortData} displayTitle={false} />
       </Container>
     </Layout>
   );
@@ -31,6 +31,11 @@ const Title = styled.div`
   letter-spacing: -0.1em;
 
   /* border: 1px solid; */
+  @media screen and (max-width: 500px) {
+    font-size: 40px;
+    font-weight: 500;
+    margin-top: 150px;
+  }
 `;
 const TitleContainer = styled.div`
   display: flex;

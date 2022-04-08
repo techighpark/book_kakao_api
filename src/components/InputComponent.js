@@ -7,9 +7,9 @@ import useInput from "../hooks/useInput";
 import useSearch from "../hooks/useSearch";
 import SearchingList from "./SearchingList";
 import SortComponent from "./SortComponent";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const InputComponent = ({ getSortData }) => {
+const InputComponent = ({ getSortData, displayTitle }) => {
   const navigate = useNavigate();
   const inputFocusRef = useRef(null);
   const [sortData, setSortData] = useState();
@@ -32,11 +32,15 @@ const InputComponent = ({ getSortData }) => {
       navigate(`/search/${e.target[0].value}`);
     }
   };
+  console.log(displayTitle);
 
   return (
     <InputWrapper>
       <form onSubmit={onSubmitTest}>
         <InputContainer ref={inputFocusRef} inputFocus={inputFocus}>
+          <Title displayTitle={displayTitle}>
+            <Link to={"/"}>Search Books</Link>
+          </Title>
           <InputDeco>
             <SearchOutlineIcon />
           </InputDeco>
@@ -66,6 +70,24 @@ const InputComponent = ({ getSortData }) => {
     </InputWrapper>
   );
 };
+
+const Title = styled.div`
+  display: ${props => (props.displayTitle ? "" : "none")};
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 20px;
+  cursor: pointer;
+  /* border: 1px solid; */
+  @media screen and (max-width: 500px) {
+    margin-right: 0px;
+    top: -40px;
+    /* bottom: 100%; */
+    right: 50%;
+    transform: translateX(50%);
+  }
+`;
 
 const SearchListContainer = styled.div`
   position: absolute;
@@ -148,6 +170,10 @@ const InputContainer = styled.div`
   z-index: 3;
 
   /* border: 1px solid green; */
+  @media screen and (max-width: 500px) {
+    max-width: 350px;
+    margin-top: 20px;
+  }
 `;
 const InputWrapper = styled.div`
   width: 100%;
@@ -157,6 +183,9 @@ const InputWrapper = styled.div`
   align-items: center;
   justify-content: center;
   /* border: 3px solid green; */
+  @media screen and (max-width: 500px) {
+    padding: 20px;
+  }
 `;
 
 export default InputComponent;
